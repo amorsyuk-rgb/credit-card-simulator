@@ -5,7 +5,7 @@
         android:allowBackup="false"
         android:label="Card Simulator"
         android:supportsRtl="true"
-android:theme="@style/Theme.CreditCardSimulator"
+        android:theme="@style/Theme.CreditCardSimulator">
 
         <activity
             android:name=".MainActivity"
