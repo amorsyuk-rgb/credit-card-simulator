@@ -9,6 +9,6 @@ import androidx.navigation.compose.rememberNavController
 fun AppNav() {
     val nav = rememberNavController()
     NavHost(nav, startDestination = "cards") {
-        composable("cards") { /* TODO: CardsListScreen */ }
+        composable("cards") { /* TODO CardsListScreen */ }
     }
 }
