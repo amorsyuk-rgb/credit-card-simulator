@@ -1,9 +1,18 @@
-buildscript {
-    dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
+android {
+    namespace = "com.sim.card"
+    compileSdk = 34
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-}
-plugins {
-    id("com.android.application") version "8.2.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.21" apply false
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        ...
+    }
+    ...
 }
