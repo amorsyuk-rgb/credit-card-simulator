@@ -40,4 +40,6 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+    implementation("androidx.compose.material3:material3:1.2.1")
+
 }
