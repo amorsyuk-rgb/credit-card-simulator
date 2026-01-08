@@ -66,11 +66,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("com.google.android.material:material:1.11.0")
-
-    def room_version = "2.5.2"
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
+    implementation "androidx.room:room-runtime:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.20"
+    implementation 'androidx.core:core-ktx:1.10.1'
 
 }
