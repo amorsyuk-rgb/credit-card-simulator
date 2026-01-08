@@ -5,5 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "cards")
 data class Card(
-    @PrimaryKey val id: String = ""
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val cardNumber: String,
+    val cardHolder: String,
+    val expiryDate: String,
+    val cvv: String,
+    val balance: Double
 )
