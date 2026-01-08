@@ -1,5 +1,4 @@
 package com.sim.card.di
-
 import android.content.Context
 import androidx.room.Room
 import com.sim.card.data.AppDatabase
