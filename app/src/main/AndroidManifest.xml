@@ -5,7 +5,8 @@
         android:allowBackup="false"
         android:label="Card Simulator"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+android:theme="@style/Theme.CreditCardSimulator"
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
