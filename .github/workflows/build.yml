@@ -29,22 +29,46 @@ jobs:
           touch ~/.android/repositories.cfg
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
+      - name: Ensure gradle.properties exists
+        run: |
+          if [ ! -f gradle.properties ]; then
+            echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" > gradle.properties
+            echo "android.useAndroidX=true" >> gradle.properties
+            echo "android.enableJetifier=true" >> gradle.properties
+            echo "kotlin.code.style=official" >> gradle.properties
+          else
+            # Ensure the AndroidX properties are set
+            if ! grep -q "android.useAndroidX=true" gradle.properties; then
+              echo "android.useAndroidX=true" >> gradle.properties
+            fi
+            if ! grep -q "android.enableJetifier=true" gradle.properties; then
+              echo "android.enableJetifier=true" >> gradle.properties
+            fi
+          fi
+          
+          # Display the gradle.properties file for debugging
+          echo "=== gradle.properties content ==="
+          cat gradle.properties
+
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      - name: Clean build
+        run: ./gradlew clean
+
       - name: Build with Gradle
         run: |
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK artifact
         if: success()
@@ -52,13 +76,4 @@ jobs:
         with:
           name: app-debug-apk
           path: app/build/outputs/apk/debug/*.apk
-          retention-days: 7
-
-      - name: Upload build reports on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-reports
-          path: |
-            app/build/reports/
           retention-days: 7
