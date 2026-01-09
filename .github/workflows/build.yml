@@ -3,8 +3,6 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -23,26 +21,18 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Gradle properties
+      - name: Accept Android SDK licenses
         run: |
-          cat > gradle.properties << EOF
-          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-          android.useAndroidX=true
-          android.enableJetifier=true
-          kotlin.code.style=official
-          EOF
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Test Gradle setup
-        run: ./gradlew --version
-
-      - name: Clean build
-        run: ./gradlew clean
-
-      - name: Build with Gradle
+      - name: Clean and build
         run: |
+          ./gradlew clean
           ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK artifact
