@@ -64,12 +64,13 @@ jobs:
             app/build/outputs/apk/release/*.apk
           retention-days: 7
 
-      - name: Upload build logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            app/build/**/*.log
-            **/build/reports/**/*
-          retention-days: 7
+     - name: Upload build logs on failure
+  if: failure()
+  uses: actions/upload-artifact@v4
+  with:
+    name: build-logs
+    path: |
+      **/build/reports/tests/**
+      **/build/reports/lint-results.html
+      **/build/outputs/apk/**/*.apk
+    retention-days: 7
