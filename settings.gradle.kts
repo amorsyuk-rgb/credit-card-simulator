@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "CreditCardSimulator"
+
+rootProject.name = "Credit Card Simulator"
 include(":app")
