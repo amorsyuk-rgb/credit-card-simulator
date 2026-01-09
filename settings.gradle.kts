@@ -1,3 +1,4 @@
+// settings.gradle.kts
 pluginManagement {
     repositories {
         google()
@@ -6,12 +7,12 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // Changed from FAIL_ON_PROJECT_REPOS
     repositories {
         google()
         mavenCentral()
     }
 }
 
-rootProject.name = "Credit Card Simulator"
+rootProject.name = "credit-card-simulator"
 include(":app")
