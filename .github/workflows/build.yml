@@ -23,12 +23,6 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Accept Android SDK licenses
-        run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
       - name: Setup Gradle properties
         run: |
           cat > gradle.properties << EOF
@@ -37,33 +31,19 @@ jobs:
           android.enableJetifier=true
           kotlin.code.style=official
           EOF
-          
-          echo "=== gradle.properties ==="
-          cat gradle.properties
-
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Setup Gradle
-        run: |
-          ./gradlew --version
+      - name: Test Gradle setup
+        run: ./gradlew --version
 
       - name: Clean build
         run: ./gradlew clean
 
       - name: Build with Gradle
         run: |
-          ./gradlew assembleDebug --stacktrace --no-daemon
+          ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK artifact
         if: success()
